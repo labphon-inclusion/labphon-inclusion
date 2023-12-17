@@ -1,0 +1,52 @@
+---
+title: "World map + labphon"
+output:
+  html_document: default
+  pdf_document: default
+date: "2023-12-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(ggthemes)
+```
+
+Here we are using data from the Scopus data base to plot a world map with the number of publications of the Laboratory Phonology journal by country. 
+
+```{r cars}
+library(ggplot2)
+library(dplyr)
+
+# Assuming df is the data frame with country values as you defined earlier
+df <- data.frame(
+  region = c("USA" , "Germany", "Canada", "Australia", "United Kingdom", "New Zealand", "France",
+"Japan", "Netherlands", "Sweden", "Taiwan", "Hong Kong", "Italy", "South Korea", "China", "Malta", "Denmark", "South Africa", "Poland", "Spain", "Austria", "Singapore", "Morocco", "Viet Nam", "Guatemala" , "Portugal", "Switzerland" ),
+  value = c(141, 58, 33, 27, 23, 19, 14, 13, 13, 5, 5, 5, 4, 4, 4, 3, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1),
+  stringsAsFactors = FALSE
+)
+
+# World map data
+world_map <- map_data("world") %>% 
+  filter(!long > 180)
+
+# Create a data frame with distinct regions
+countries <- world_map %>% 
+  distinct(region) %>% 
+  rowid_to_column()
+
+# Merge df and countries to ensure correct mapping
+merged_data <- merge(countries, df, by = "region", all.x = TRUE)
+
+# Plot the map with land in shades of red 
+merged_data %>% 
+  ggplot(aes(fill = value, map_id = region)) +
+  geom_map(map = world_map, color = "white") +
+  scale_fill_gradient(low = "pink", high = "darkred", name = "Number of papers", breaks = seq(0, 150, by = 30)) +
+  expand_limits(x = world_map$long, y = world_map$lat) +
+  coord_map("moll") +
+  theme_map()
+```
+

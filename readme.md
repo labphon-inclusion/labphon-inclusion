@@ -1,7 +1,7 @@
-# Authors:
-Marco Aurelio Silva Fonseca - Whitman College
-Brennan Dell - University of Illinois Urbana-Champaign
-Amana Greco - Universidade Federal de Minas Gerais
+## Authors:
+- Marco Aurelio Silva Fonseca - Whitman College
+- Brennan Dell - University of Illinois Urbana-Champaign
+- Amana Greco - Universidade Federal de Minas Gerais
 
 For this analysis, we first search Scopus for all publications associated with the Laboratory Phonology Journal (SOURCE-ID ( 19700200915)[1]. This search returned 152 publications between 2015 and 2023.
 
